@@ -21,8 +21,7 @@ export const createTransaction = async (req, res) => {
       return res.status(400).json({ message: 'Amount must be greater than 0.' });
     }
 
-    // To be replaced with req.user.id once JWT middleware is implemented.
-    const userId = req.body.userId || new mongoose.Types.ObjectId().toString();
+    const userId = req.user.id;
 
     const newTransaction = await Transaction.create({
       userId,
@@ -43,9 +42,7 @@ export const createTransaction = async (req, res) => {
 // Get All Transactions
 export const getTransactions = async (req, res) => {
   try {
-    // TEMPORARY: Optional filter by userId from query params for testing.
-    // To be replaced with { userId: req.user.id } once JWT middleware is implemented.
-    const filter = req.query.userId ? { userId: req.query.userId } : {};
+    const filter = { userId: req.user.id };
     
     const transactions = await Transaction.find(filter).sort({ date: -1 });
     res.status(200).json(transactions);
@@ -64,7 +61,7 @@ export const getTransactionById = async (req, res) => {
       return res.status(400).json({ message: 'Invalid transaction ID format.' });
     }
 
-    const transaction = await Transaction.findById(id);
+    const transaction = await Transaction.findOne({ _id: id, userId: req.user.id });
     
     if (!transaction) {
       return res.status(404).json({ message: 'Transaction not found.' });
@@ -103,8 +100,8 @@ export const updateTransaction = async (req, res) => {
     if (description !== undefined) updates.description = description;
     if (date) updates.date = date;
 
-    const updatedTransaction = await Transaction.findByIdAndUpdate(
-      id,
+    const updatedTransaction = await Transaction.findOneAndUpdate(
+      { _id: id, userId: req.user.id },
       { $set: updates },
       { new: true, runValidators: true } // Return updated doc, run schema validators
     );
@@ -129,7 +126,7 @@ export const deleteTransaction = async (req, res) => {
       return res.status(400).json({ message: 'Invalid transaction ID format.' });
     }
 
-    const deletedTransaction = await Transaction.findByIdAndDelete(id);
+    const deletedTransaction = await Transaction.findOneAndDelete({ _id: id, userId: req.user.id });
 
     if (!deletedTransaction) {
       return res.status(404).json({ message: 'Transaction not found.' });
