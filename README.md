@@ -114,8 +114,8 @@ backend/
 |----------|------|
 | Requirement Analysis | [View Document](https://drive.google.com/file/d/1czd4oegahKemJ-k9XuJNfwquQYsogE9r/view?usp=sharing) |
 | Functional Requirements | [View Document](https://drive.google.com/file/d/1ChIJqadF76e126xwj1uhUXvjQ0T-hB-b/view?usp=sharing) |
-| Non Functional Requirements | [View Document](https://drive.google.com/file/d/1ChIJqadF76e126xwj1uhUXvjQ0T-hB-b/view?usp=sharing) |
+| Non Functional Requirements | [View Document](https://drive.google.com/file/d/13lklvp5YA07LLy_QJg2Cmu9qvUihk2VH/view?usp=sharing) |
 | Problem Analysis | [View Document](https://drive.google.com/file/d/1lUPShsE2vqiRr4vmOwAsjqNBdkf5wCYz/view?usp=sharing) |
-| API Documentation | [View Document](https://drive.google.com/file/d/1ChIJqadF76e126xwj1uhUXvjQ0T-hB-b/view?usp=sharing) |
+| API Documentation | [View Document](https://drive.google.com/file/d/1RPHHVjSIPDQDkfgYoNUZB6RrLv7X7r0q/view?usp=sharing) |
 | System Architecture | [View Diagram](https://drive.google.com/file/d/1UoyZrus6nmlRQK7pTEa7nDxhRS4DqGCL/view?usp=sharing) |
 | Database Design | [View Diagram](https://drive.google.com/file/d/1nrAejrDzX1Bnmgr9yVf2DjQggGVsfWne/view?usp=sharing) |
