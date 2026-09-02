@@ -54,9 +54,52 @@ export const createTransaction = async (req, res) => {
 // Get All Transactions
 export const getTransactions = async (req, res) => {
   try {
+    const { search, type, category, sort, limit } = req.query;
+
     const filter = { userId: req.user.id };
-    
-    const transactions = await Transaction.find(filter).sort({ date: -1 });
+
+    // Type Filter
+    if (type) {
+      if (!['income', 'expense'].includes(type)) {
+        return res.status(400).json({ message: 'Invalid type. Allowed values are "income" or "expense".' });
+      }
+      filter.type = type;
+    }
+
+    // Category Filter
+    if (category) {
+      filter.category = category;
+    }
+
+    // Keyword Search (Description)
+    if (search) {
+      // Safely escape special regex characters
+      const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      filter.description = { $regex: new RegExp(escapedSearch, 'i') };
+    }
+
+    // Sorting
+    let sortOption = { date: -1 }; // newest by default
+    if (sort) {
+      if (!['newest', 'oldest'].includes(sort)) {
+        return res.status(400).json({ message: 'Invalid sort. Allowed values are "newest" or "oldest".' });
+      }
+      sortOption = { date: sort === 'oldest' ? 1 : -1 };
+    }
+
+    // Build Query
+    let query = Transaction.find(filter).sort(sortOption);
+
+    // Limit
+    if (limit) {
+      const limitNumber = parseInt(limit, 10);
+      if (isNaN(limitNumber) || limitNumber <= 0) {
+        return res.status(400).json({ message: 'Invalid limit. Must be a positive integer.' });
+      }
+      query = query.limit(limitNumber);
+    }
+
+    const transactions = await query;
     res.status(200).json(transactions);
   } catch (error) {
     console.error('Error fetching transactions:', error);
