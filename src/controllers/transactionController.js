@@ -12,11 +12,19 @@ const isFutureDate = (dateInput) => {
 // Create Transaction
 export const createTransaction = async (req, res) => {
   try {
-    const { type, amount, category, description, date } = req.body;
+    const { title, type, amount, category, description, date } = req.body;
     
     // Validate required fields
-    if (!type || !amount || !category || !date) {
+    if (!title || !type || !amount || !category || !date) {
       return res.status(400).json({ message: 'Please provide all required fields.' });
+    }
+
+    if (title.trim().length === 0) {
+      return res.status(400).json({ message: 'Title cannot be empty.' });
+    }
+
+    if (title.length > 100) {
+      return res.status(400).json({ message: 'Title cannot exceed 100 characters.' });
     }
 
     // Validate type
@@ -37,6 +45,7 @@ export const createTransaction = async (req, res) => {
 
     const newTransaction = await Transaction.create({
       userId,
+      title: title.trim(),
       type,
       amount,
       category,
@@ -133,13 +142,21 @@ export const getTransactionById = async (req, res) => {
 export const updateTransaction = async (req, res) => {
   try {
     const { id } = req.params;
-    const { type, amount, category, description, date } = req.body;
+    const { title, type, amount, category, description, date } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Invalid transaction ID format.' });
     }
 
     // Validation
+    if (title !== undefined) {
+      if (title.trim().length === 0) {
+        return res.status(400).json({ message: 'Title cannot be empty.' });
+      }
+      if (title.length > 100) {
+        return res.status(400).json({ message: 'Title cannot exceed 100 characters.' });
+      }
+    }
     if (type && !['income', 'expense'].includes(type)) {
       return res.status(400).json({ message: 'Type must be either "income" or "expense".' });
     }
@@ -153,6 +170,7 @@ export const updateTransaction = async (req, res) => {
 
     // Only allow specific fields to be updated
     const updates = {};
+    if (title) updates.title = title.trim();
     if (type) updates.type = type;
     if (amount) updates.amount = amount;
     if (category) updates.category = category;

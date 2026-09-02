@@ -6,6 +6,12 @@ const transactionSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 100,
+  },
   type: {
     type: String,
     required: true,
@@ -35,7 +41,7 @@ const transactionSchema = new mongoose.Schema({
     required: true,
   }
 }, {
-  timestamps: { createdAt: true, updatedAt: false }
+  timestamps: { createdAt: true, updatedAt: true }
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
