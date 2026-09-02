@@ -108,15 +108,14 @@ backend/
 │   └── routes/                # Express router definitions
 ```
 
-## Documentation Links
+## Documentation
 
-For detailed project documentation, please refer to the following SAGO Drive documents:
-
-- Requirement Analysis: [Google Drive Link]
-- Functional Requirements: [Google Drive Link]
-- Non Functional Requirements: [Google Drive Link]
-- Problem Analysis: [Google Drive Link]
-- System Architecture: [Google Drive Link]
-- Database Design: [Google Drive Link]
-- API Documentation: [Google Drive Link]
-- Flow Diagrams: [Google Drive Link]
+| Document | Link |
+|----------|------|
+| Requirement Analysis | [View Document](https://drive.google.com/file/d/1czd4oegahKemJ-k9XuJNfwquQYsogE9r/view?usp=sharing) |
+| Functional Requirements | [View Document](https://drive.google.com/file/d/1ChIJqadF76e126xwj1uhUXvjQ0T-hB-b/view?usp=sharing) |
+| Non Functional Requirements | [View Document](https://drive.google.com/file/d/1ChIJqadF76e126xwj1uhUXvjQ0T-hB-b/view?usp=sharing) |
+| Problem Analysis | [View Document](https://drive.google.com/file/d/1lUPShsE2vqiRr4vmOwAsjqNBdkf5wCYz/view?usp=sharing) |
+| API Documentation | [View Document](https://drive.google.com/file/d/1ChIJqadF76e126xwj1uhUXvjQ0T-hB-b/view?usp=sharing) |
+| System Architecture | [View Diagram](https://drive.google.com/file/d/1UoyZrus6nmlRQK7pTEa7nDxhRS4DqGCL/view?usp=sharing) |
+| Database Design | [View Diagram](https://drive.google.com/file/d/1nrAejrDzX1Bnmgr9yVf2DjQggGVsfWne/view?usp=sharing) |
