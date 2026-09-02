@@ -1,6 +1,14 @@
 import Transaction from '../models/Transaction.js';
 import mongoose from 'mongoose';
 
+const isFutureDate = (dateInput) => {
+  const inputDate = new Date(dateInput);
+  const now = new Date();
+  // Set to the end of today to avoid time-of-day differences
+  now.setHours(23, 59, 59, 999);
+  return inputDate > now;
+};
+
 // Create Transaction
 export const createTransaction = async (req, res) => {
   try {
@@ -19,6 +27,10 @@ export const createTransaction = async (req, res) => {
     // Validate amount
     if (amount <= 0) {
       return res.status(400).json({ message: 'Amount must be greater than 0.' });
+    }
+
+    if (isFutureDate(date)) {
+      return res.status(400).json({ message: 'Transaction date cannot be in the future.' });
     }
 
     const userId = req.user.id;
@@ -90,6 +102,10 @@ export const updateTransaction = async (req, res) => {
     }
     if (amount !== undefined && amount <= 0) {
       return res.status(400).json({ message: 'Amount must be greater than 0.' });
+    }
+
+    if (date && isFutureDate(date)) {
+      return res.status(400).json({ message: 'Transaction date cannot be in the future.' });
     }
 
     // Only allow specific fields to be updated
